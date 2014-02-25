@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace MyTest.Utils
+{
+    /// <summary>
+    /// Helper utility for randomization
+    /// </summary>
+    public static class Randomizer
+    {
+        private static string SALT = "2Uu0rX7saX";
+  
+        /// <summary>
+        /// Generates a random string of given size, hashed using the given algorithm
+        /// </summary>
+        /// <param name="?"></param>
+        /// <returns></returns>
+        public static string generateRandomString(HashAlgorithm hashAlgorithm, int length = 8)
+        {
+            // calculate md5 of a random string
+            var guid = new Guid();
+            var randomString = System.Text.Encoding.ASCII.GetBytes(guid.ToString("N") + SALT);
+            var hash = hashAlgorithm.ComputeHash(randomString);
+ 
+            // convert md5 to string
+            var sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("X2"));
+            }
+
+            // return random part of the hash
+            return sb.ToString().Substring(getRandomInt(0, 22), length);
+        }
+
+        /// <summary>
+        /// Returns a random number between min and max
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public static int getRandomInt(int min = 0, int max = int.MaxValue)
+        {
+            var random = new Random((int)DateTime.Now.Ticks);
+            return random.Next(min, max);
+        }
+    }
+}
