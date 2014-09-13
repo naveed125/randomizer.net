@@ -1,4 +1,4 @@
-randomizer.net
+Randomizer
 ==========
 
 A C# utility class for generating random numbers and strings using C#
@@ -7,7 +7,7 @@ Example:
 --------
 
 <code>
-  Utils.Randomizer.generateRandomString(SHA256.Create(Utils.Randomizer.SALT), 8)
+  Utils.Randomizer.generateRandomString(SHA256.Create(), 8)
 </code>
 
 Notes:
